@@ -9,6 +9,12 @@ var $player = $('.team-list')
 
 $.get("http://nflarrest.com/api/v1/team/arrests/NE", function(player) {
   $.each(player, function(i,player){
-    $player.append("<tr><td class='player-name'>" + player.Name + "</td><td class='player-position'>" + player.Position + "</td><td class='player-crime'>" + player.Category + "</td></tr>")
+    $player.append(
+      "<tr><td class='player-name'>" + player.Name +
+      "</td><td class='player-position'>" + player.Position +
+      "</td><td class='player-crime'>" + player.Category +
+      "</td><td class='player-date'>" + player.Date +
+      "</td></tr>"
+    )
   })
 }, "json" );
