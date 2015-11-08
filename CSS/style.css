@@ -5,7 +5,12 @@
     background-size: cover;
 }
 
-a:focus, a:hover {
+a:focus,
+a:hover {
   color: rgb(224, 29, 222);
   text-decoration: none;
 }
+
+.panel-heading:hover {
+   background-color: rgba(51, 122, 183, 0.40);
+ }
