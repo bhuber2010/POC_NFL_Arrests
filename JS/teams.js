@@ -8,7 +8,7 @@
 var $player = $('.team-list');
 var $teamPanel = $('.panel-group')
 
-var $teams = $.get("http://huber007.dyndns.org:1337/nflarrest.com/api/v1/team", function(team) {
+var $teams = $.get("http://localhost:1337/nflarrest.com/api/v1/team", function(team) {
               $.each(team, function(i,team){
                 $teamPanel.append(
                   "<div class='panel panel-default'><div class='panel-heading' data-id=" + team.Team +
@@ -23,7 +23,7 @@ var $teams = $.get("http://huber007.dyndns.org:1337/nflarrest.com/api/v1/team", 
 $teams.done(function(teamList){
   console.log(teamList[0].Team);
   $.each(teamList, function(t,teamList) {
-    $.get("http://huber007.dyndns.org:1337/nflarrest.com/api/v1/team/arrests/" + teamList.Team, function(player) {
+    $.get("http://localhost:1337/nflarrest.com/api/v1/team/arrests/" + teamList.Team, function(player) {
       $.each(player, function(p,player){
         $("#" + teamList.Team + " table").append(
           "<tr><td class='player-name'>" + player.Name +
