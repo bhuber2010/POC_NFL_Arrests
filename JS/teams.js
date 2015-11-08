@@ -1,14 +1,13 @@
-// $.get("http://nflarrest.com/api/v1/team/arrests/NE", function(data) {
-//   $( ".data" )
-//     .append("Name: " + data[0].Name + " ")
-//     .append("Position: " + data[0].Position + " ")
-//     .append("Category: " + data[0].Category);
-// }, "json" );
+jQuery.ajaxPrefilter(function(options) {
+    if (options.crossDomain && jQuery.support.cors) {
+        options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+    }
+});
 
 var $player = $('.team-list');
 var $teamPanel = $('.panel-group')
 
-var $teams = $.get("http://localhost:1337/nflarrest.com/api/v1/team", function(team) {
+var $teams = $.get("http://nflarrest.com/api/v1/team", function(team) {
               $.each(team, function(i,team){
                 $teamPanel.append(
                   "<div class='panel panel-default'><div class='panel-heading' data-id=" + team.Team +
@@ -23,7 +22,7 @@ var $teams = $.get("http://localhost:1337/nflarrest.com/api/v1/team", function(t
 $teams.done(function(teamList){
   console.log(teamList[0].Team);
   $.each(teamList, function(t,teamList) {
-    $.get("http://localhost:1337/nflarrest.com/api/v1/team/arrests/" + teamList.Team, function(player) {
+    $.get("http://nflarrest.com/api/v1/team/arrests/" + teamList.Team, function(player) {
       $.each(player, function(p,player){
         $("#" + teamList.Team + " table").append(
           "<tr><td class='player-name'>" + player.Name +
