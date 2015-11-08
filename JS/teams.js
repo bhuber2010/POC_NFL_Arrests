@@ -10,9 +10,9 @@ var $teamPanel = $('.panel-group')
 var $teams = $.get("http://nflarrest.com/api/v1/team", function(team) {
               $.each(team, function(i,team){
                 $teamPanel.append(
-                  "<div class='panel panel-default'><div class='panel-heading' data-id=" + team.Team +
-                  "><a><h3 class='panel-title collapsed' data-parent='#accordion' data-toggle='collapse' data-target=#" + team.Team +
-                  " href=#" + team.Team + ">" + team.Team + "<span> : </span>" + "<span class='badge'>" + team.arrest_count + "</span></h3></a></div><div id=" + team.Team +
+                  "<div class='panel panel-default'><a><div class='panel-heading' data-id=" + team.Team +
+                  "><h3 class='panel-title collapsed' data-parent='#accordion' data-toggle='collapse' data-target=#" + team.Team +
+                  " href=#" + team.Team + ">" + team.Team + "<span> : </span>" + "<span class='badge'>" + team.arrest_count + "</span></h3></div></a><div id=" + team.Team +
                   " class='panel-collapse collapse'><table class='table table-striped table-responsive team-list'>" +
                   "<thead><th>Name</th><th>Position</th><th>Crime</th><th>Date</th></thead></table></div></div>"
                 )

@@ -4,3 +4,8 @@
     background-image: url('http://www.nflonlocation.net/sites/default/files/privacypolicy/privacy-policy-header.jpg');
     background-size: cover;
 }
+
+a:focus, a:hover {
+  color: rgb(224, 29, 222);
+  text-decoration: none;
+}
