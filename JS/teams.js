@@ -5,33 +5,30 @@ jQuery.ajaxPrefilter(function(options) {
 });
 
 var $player = $('.team-list');
-var $teamPanel = $('.panel-group')
+var $teamsPanel = $('.panel-group')
+var teamSource = $('#team-template').html();
+// var teamTemplate = Handlebars.compile(team-source);
+var playerSource = $('#player-template').html();
+
+var playerCrime = "" +
+      "<tr>" +
+        "<td class='player-name'>{{Name}}</td>" +
+        "<td class='player-position'>{{Position}}</td>" +
+        "<td class='player-crime'>{{Category}}</td>" +
+        "<td class='player-date'>{{Date}}</td>" +
+      "</tr>";
 
 var $teams = $.get("http://nflarrest.com/api/v1/team", function(team) {
-              $.each(team, function(i,team){
-                $teamPanel.append(
-                  "<div class='panel panel-default collapsed' data-parent='#accordion' data-toggle='collapse' data-target=#" + team.Team +
-                  "><div class='panel-heading' data-id=" + team.Team + "><a><h3 class='panel-title'" +
-                  " href=#" + team.Team + ">" + team.Team + "<span> : </span>" + "<span class='badge'>" + team.arrest_count + "</span></h3></a></div><div id=" + team.Team +
-                  " class='panel-collapse collapse'><table class='table table-striped table-responsive team-list'>" +
-                  "<thead><th>Name</th><th>Position</th><th>Crime</th><th>Date</th></thead></table></div></div>"
-                )
-              })
-            }, "json" );
+              // console.log(team[0].Team)
+                 var $teams = $(team);
+                 $teams.each($teams, function(i,$teams) {
+                   
+                   $.get("http://nflarrest.com/api/v1/team/arrests/" + $teams.Team, function(player) {
+                     $.each(player, function(p,player){
+                       $("#" + $teams.Team + " table")
+                          .append(Mustache.render(playerCrime, player))
+                     })
+                   }, "json" );
 
-$teams.done(function(teamList){
-  console.log(teamList[0].Team);
-  $.each(teamList, function(t,teamList) {
-    $.get("http://nflarrest.com/api/v1/team/arrests/" + teamList.Team, function(player) {
-      $.each(player, function(p,player){
-        $("#" + teamList.Team + " table").append(
-          "<tr><td class='player-name'>" + player.Name +
-          "</td><td class='player-position'>" + player.Position +
-          "</td><td class='player-crime'>" + player.Category +
-          "</td><td class='player-date'>" + player.Date +
-          "</td></tr>"
-        )
-      })
-      }, "json" );
-    })
-});
+            }, "json"
+          );
